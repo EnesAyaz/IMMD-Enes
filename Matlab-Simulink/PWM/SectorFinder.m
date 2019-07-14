@@ -29,6 +29,7 @@ if(angle>pi/3 && angle<2*pi/3)
         *t_s/V_dc;
     Tb= (-3*alfa/4 +sqrt(3)*beta/4)...
         *t_s/V_dc;
+    
    Vo2=[0;0;0];
    Va=[1;1;0];
    Vb=[0;1;0];
@@ -71,6 +72,7 @@ if(angle>-2*pi/3 && angle<-pi/3)
         *t_s/V_dc;
       Tb= (3*alfa/4 -sqrt(3)*beta/4)...
         *t_s/V_dc;
+    
    Vo1=[0;0;0];
    Va=[0;0;1];
    Vb=[1;0;1];
@@ -86,6 +88,7 @@ if(angle>-pi/3 && angle<0)
     Ta=(-sqrt(3)*beta/2)*t_s/V_dc;
     Tb= (+3*alfa/4 +sqrt(3)*beta/4)...
         *t_s/V_dc;
+    
     Vo2=[0;0;0];
     Va=[1;0;1];
     Vb=[1;0;0];
@@ -111,7 +114,7 @@ for k=1:switching_interval
     else if T_o+Ta_sample>k
         v=[v, Va];
         else if T_o+Ta_sample...
-                    Tb_sample>k
+                    +Tb_sample>k
         v=[v, Vb];
             else if 3*T_o+...
              Ta_sample+Tb_sample>k
@@ -125,7 +128,7 @@ for k=1:switching_interval
              +2*Ta_sample...
              +2*Tb_sample>k
                 v=[v, Va];
-                        else
+                        else 
                         v=[v, Vo1];     
                                 
                         end
