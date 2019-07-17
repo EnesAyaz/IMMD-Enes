@@ -1,7 +1,7 @@
 % determine sampling time and stop time
 clc;
 clear;
-sampleTime= 1e-5;
+sampleTime= 1e-4;
 timeStop=0.1;
 time= 0:sampleTime:timeStop;
 
