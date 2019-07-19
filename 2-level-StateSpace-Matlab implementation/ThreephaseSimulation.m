@@ -31,15 +31,16 @@ while time<stopTime
     
       
     phaseA=A_phase*sin(2*pi*f_phase*time);
-    phaseB=A_phase*sin(2*pi*f_phase*time-2*pi/3);
-    phaseC=A_phase*sin(2*pi*f_phase*time+2*pi/3);
+    phaseB=A_phase*sin(2*pi*f_phase*time-(2*pi/3));
+    phaseC=A_phase*sin(2*pi*f_phase*time+(2*pi/3));
     
     phases=[phases, [phaseA; phaseB;phaseC]];
     %%
     vectorA= [0,0; phaseA,0 ];
     vectorB= [0,0; -phaseB*cos(pi/6), -phaseB*sin(pi/6)];
     vectorC=[0,0; -phaseC*cos(pi/6),phaseC*sin(pi/6)];
-    vectorTotal=vectorA+vectorB+vectorC;
+    vectorTotal=[vectorA(1,1)+vectorB(1,1)+vectorC(1,1),vectorA(1,2)+vectorB(1,2)+vectorC(1,2)...
+        ;vectorA(2,1)+vectorB(2,1)+vectorC(2,1),vectorA(2,2)+vectorB(2,2)+vectorC(2,2)];
 %     sqrt(vectorTotal(2,1)^2+vectorTotal(2,2)^2);
     subplot(2,2,2);
     axis equal;
