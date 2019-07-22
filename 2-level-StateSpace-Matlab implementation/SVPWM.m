@@ -8,7 +8,7 @@ time=0;
 simulationTime=[];
 
 %% Switching Frequency and DC Link determination
-f_s=1000;
+f_s=10000;
 t_s=1/f_s;
 V_dc=500;
 
@@ -19,7 +19,7 @@ clarke=[2/3, -1/3,-1/3 ;
 
 %% Reference Signal
 f_reference= 50; %in Hz
-A_reference=100; %in Voltage
+A_reference=288; %in Voltage
 
 %%
 ma= (A_reference/V_dc)*sqrt(3);
@@ -232,3 +232,15 @@ plot(simulationTime,Sabc(1,:)-Sabc(2,:));
 % plot(Sabc(2,:)-Sabc(3,:));
 % hold on;
 % plot(Sabc(3,:)-Sabc(1,:));
+figure(2);
+xlim=([0 200]);
+Y = fft(Sabc(1,:)-Sabc(2,:));
+L=40000;
+P2 = abs(Y/L);
+P1 = P2(1:L/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+f = (0:(L/2))/(L*sampleTime);
+stem(f,P1);
+
+disp(P1(find(f==50)));
+
