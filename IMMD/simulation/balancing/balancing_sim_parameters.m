@@ -76,7 +76,7 @@ sin(delta1)/sin(delta2)
 
 %% RL Load
 Ts = 1e-6; % sec
-Tfinal = 0.1; % sec
+Tfinal = 1; % sec
 Ripth = 0.08; % sec
 fsw = 10e3; % Hz
 Vdc = 540; % Volts
