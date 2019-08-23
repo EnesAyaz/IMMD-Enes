@@ -185,9 +185,11 @@ Iload2 = Vln2/Z2;
 
 P = P_module1+ P_module2;
 Idc = P/Vdc/2;
-Rin = 10;
+Rin = 10; % former value was 10
 Lin = Lload1;
-Vin = Vdc + Idc*Rin;
+
+%Vin = Vdc + Idc*Rin;
+Vin= (Vdc+Idc*Rin)/2.34
 
 %% Capacitances
 % Module 1
