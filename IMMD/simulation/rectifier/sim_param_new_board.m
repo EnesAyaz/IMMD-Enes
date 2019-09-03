@@ -136,7 +136,7 @@ Rin = 0.1; % former value was 10
 Lin = Lload1;
 
 %Vin = Vdc + Idc*Rin;
-Vin= (Vdc+Idc*Rin)/1.731;
+Vin= (Vdc+Idc*Rin)/2.33;
 
 %% Capacitances
 % Module 1
