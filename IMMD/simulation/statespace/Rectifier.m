@@ -10,11 +10,11 @@ NumberofSteps = numel(time_array);
 %% Defined Parameters
 DCSourceMagn = 300; % V
 SixthHarmonicMagn = DCSourceMagn*(1-0.95262794416); % V
-SixthHarmonicFreq = 300; % Hz
+SixthHarmonicFreq = 150; % Hz
 SixthHarmonicPhase = 0; % Radians
 Vacrms = 220; % V
 GridFreq = 50; % Hz
-Cdcrec = 5e-3; % F
+Cdcrec = 10e-3; % F
 %% Constant Parameters
 Cdc = 15e-6; % F
 RA = 10; % Ohms
@@ -25,6 +25,8 @@ LB = 15e-3; % H
 LC = 15e-3; % H
 Rin = 2; % Ohms
 Lin = 5e-5; % H
+Rrec=0.5;
+Lrec=1e-9;
 
 %%
 
@@ -91,7 +93,7 @@ DCBusVoltageDiff  = 0;
 InputCurrentDiff  = 0;
 for k = 2:NumberofSteps
     
-    InputVoltage(k)= (ThirdHarmonicDC(k)/Rin-InputCurrent(k-1)+InputVoltage(k-1)*Cdcrec/Ts)/(Cdcrec/Ts+1/Rin);
+    InputVoltage(k)= (ThirdHarmonicDC(k)/Rrec-InputCurrent(k-1)+InputVoltage(k-1)*Cdcrec/Ts)/(Cdcrec/Ts+1/Rrec);
     
     PhaseACurrentDiff = ...
         Coef_isa_isa     * PhaseACurrentPrev +...
