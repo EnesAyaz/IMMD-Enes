@@ -2,6 +2,7 @@
 clc;
 clear;
 close all
+tic;
 
 %% Time definition
 sampleTime= 1e-6;
@@ -12,7 +13,10 @@ numberOfStep= length(time);
 %% Input and parameters
 gridFreq=50;
 VoltageDC=300;
+
 RectifierVoltage= VoltageDC* cos(mod(2*pi*gridFreq.*time,pi/3)-pi/6);
+
+% RectifierVoltage= VoltageDC*ones(1,numberOfStep);
 
 %%
 figure();
@@ -30,15 +34,15 @@ LA = 15e-3; % H
 LB = 15e-3; % H
 LC = 15e-3; % H
 Rin = 2; % Ohms
-Lin = 5e-5; % H
+Lin = 3.4e-5; % H
 Rrec=0.5; % Ohms
-Cdcrec = 5e-3; % F
+Cdcrec = 10e-3; % F %% former value is 5e-3
 
 %% Switch Signals
-ma = 0.9;  % modulation index
+ma = 0.9;  % modulation index %% former value is 0.9
 fout = 50; % Hz
 fsw = 10e3; % Hz
-delta = 0; % Radians (it is phase of carrrier)
+delta = pi/2; % Radians (it is phase of carrrier)
 VrefA = ma*sin(2*pi*fout*time-delta);
 VrefB = ma*sin(2*pi*fout*time-delta-2*pi/3);
 VrefC = ma*sin(2*pi*fout*time-delta-4*pi/3);
@@ -62,17 +66,26 @@ hold all;
 subplot(2,2,1);
 plot(time,SA,'b-','Linewidth',1);
 xlim([sampleTime 100*sampleTime])
+xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
+title('Switch Signals A','FontSize',14,'FontWeight','Bold')
+ylabel('Boolean','FontSize',14,'FontWeight','Bold')
+
 subplot(2,2,2);
 plot(time,SB,'r-','Linewidth',1);
 xlim([sampleTime 100*sampleTime])
+xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
+title('Switch Signals B','FontSize',14,'FontWeight','Bold')
+ylabel('Boolean','FontSize',14,'FontWeight','Bold')
+
 subplot(2,2,3);
 plot(time,SC,'m-','Linewidth',1);
 xlim([sampleTime 100*sampleTime])
+xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
+title('Switch Signals C','FontSize',14,'FontWeight','Bold')
+ylabel('Boolean','FontSize',14,'FontWeight','Bold')
 
 set(gca,'FontSize',14);
-xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
-ylabel('Switch Signals','FontSize',14,'FontWeight','Bold')
-legend({'Carrier A','Carrier-B','Carrier-C'},'Location','best');
+% legend({'Carrier A','Carrier-B','Carrier-C'},'Location','best');
 
 %% state and input matrices (DX=AX+BU) ==> A 4*4 matrices B 4*1 matrices
 A11 =ones(1,numberOfStep)* -((RA*LB)+(RA*LC)+(RB*LC)) / ((LA*LC)+(LB*LC)+(LA*LB));
@@ -167,7 +180,7 @@ plot(time,states(3,:),'b-','Linewidth',2);
 plot(time,InputVoltage,'r-','Linewidth',2);
 set(gca,'FontSize',14);
 xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
-ylabel('DC Bus Voltages (Volts)','FontSize',14,'FontWeight','Bold')
+ylabel('Voltages (Volts)','FontSize',14,'FontWeight','Bold')
 %xlim([0 40e-3]);
 %ylim([-1.2 1.2]);
 legend({'DC Bus','Input'},'Location','best');
@@ -176,17 +189,27 @@ figure;
 hold all;
 subplot(2,2,1);
 plot(time,currentDC,'k','Linewidth',3);
+title('DC current( input-capacitor current) ','FontSize',14,'FontWeight','Bold');
+xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
+ylabel('Currents (Amps)','FontSize',14,'FontWeight','Bold');
+
 subplot(2,2,2);
 plot(time,currentCap,'r-','Linewidth',2);
+title('Capacitor Current ','FontSize',14,'FontWeight','Bold');
+xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
+ylabel('Currents (Amps)','FontSize',14,'FontWeight','Bold')
+
 subplot(2,2,3);
 plot(time,states(4,:),'b-','Linewidth',2);
+title('input Current','FontSize',14,'FontWeight','Bold')
+xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
+ylabel('Currents (Amps)','FontSize',14,'FontWeight','Bold')
 
 set(gca,'FontSize',14);
-xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
-ylabel('DC Bus Currents (Amps)','FontSize',14,'FontWeight','Bold')
+
 
 ylim([-10 10]);
-legend({'DC current','capacitor Current'},'Location','best');
+% legend({'DC current','capacitor Current'},'Location','best');
 % % Verification figures
 
 
