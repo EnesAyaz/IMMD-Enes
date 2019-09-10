@@ -35,7 +35,7 @@ LB = 15e-3; % H
 LC = 15e-3; % H
 Rin = 2; % Ohms
 Lin = 3.4e-5; % H
-Rrec=0.5; % Ohms
+Rrec=1e-2; % Ohms
 Cdcrec = 10e-3; % F %% former value is 5e-3
 
 %% Switch Signals
@@ -134,8 +134,13 @@ differenceState=zeros(4,1);
 
 %% Main Loop for State Calculations
 for k = 2:numberOfStep
-   InputVoltage(k)= (RectifierVoltage(k)/Rrec-states(4,1,k-1)...
+    if RectifierVoltage(k)>InputVoltage(k-1)
+        InputVoltage(k)= (RectifierVoltage(k)/Rrec-states(4,1,k-1)...
        +InputVoltage(k-1)*Cdcrec/sampleTime)/(Cdcrec/sampleTime+1/Rrec);
+   
+    else 
+          InputVoltage(k) = InputVoltage(k-1)- (states(4,1,k-1)*sampleTime)/Cdcrec;
+    end
    
    differenceState= A(:,:,k)*previusState+ B(:,:,k)* InputVoltage(k);
    
@@ -176,6 +181,7 @@ legend({'Phase-A','Phase-B','Phase-C'},'Location','best');
 %% DC Bus Voltages
 figure;
 hold all;
+plot(time,RectifierVoltage,'k-','Linewidth',2)
 plot(time,states(3,:),'b-','Linewidth',2);
 plot(time,InputVoltage,'r-','Linewidth',2);
 set(gca,'FontSize',14);
@@ -183,7 +189,7 @@ xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
 ylabel('Voltages (Volts)','FontSize',14,'FontWeight','Bold')
 %xlim([0 40e-3]);
 %ylim([-1.2 1.2]);
-legend({'DC Bus','Input'},'Location','best');
+legend({'Rectifier Voltage','DC Bus','Input'},'Location','best');
 %% DC Bus Currents
 figure;
 hold all;
