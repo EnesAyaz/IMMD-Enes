@@ -1,3 +1,9 @@
+%%
+clear;
+clc;
+close all;
+%%
+
 % Induced Voltage
 Ts = 1e-6; % sec
 Tfinal = 0.1; % sec

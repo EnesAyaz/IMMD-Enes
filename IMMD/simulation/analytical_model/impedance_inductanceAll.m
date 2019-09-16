@@ -1,10 +1,11 @@
 %% 
-close all;
-clc;
-clear;
+% close all;
+% clc;
+% clear;
 
 %% w axis
 w = 2*pi*logspace(0,7,1000)';
+w= (newF1(1)+newF1(1)):50:(newF1(end)+newF1(end));
 time= 0:1e-4:1;
 %% Parameter values
 LATop  = 03.40e-9;

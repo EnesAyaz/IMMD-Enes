@@ -1,8 +1,8 @@
 %% clear all variables
-clc;
-clear;
-close all
-tic;
+% clc;
+% clear;
+% close all
+% tic;
 
 %% Time definition
 sampleTime= 1e-6;
