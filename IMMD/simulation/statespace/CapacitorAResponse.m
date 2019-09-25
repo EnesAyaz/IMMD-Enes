@@ -3,8 +3,10 @@ clear;
 clc;
 close all;
 
+%%
+scale=10; % determines switching frequency( as multiplied by 10kHz)
 %% Time definition
-sampleTime= 1e-7;
+sampleTime= (1e-6)/scale;
 sampleFreq=1/sampleTime;
 finalTime=0.1-sampleTime; % number of steps should be even
 time= 0: sampleTime: finalTime;
@@ -13,7 +15,7 @@ numberOfStep= length(time);
 %% Switch Signals
 ma = 0.9;  % modulation index %% former value is 0.9
 fout = 50; % Hz1
-fsw = 100e3; % Hz
+fsw = 10e3*scale; % Hz
 delta = 0; % Radians (it is phase of carrrier)
 VrefA = ma*sin(2*pi*fout*time-delta);
 VrefB = ma*sin(2*pi*fout*time-delta-2*pi/3);
@@ -65,7 +67,7 @@ PCA=[];
 
 %%
 for i=1:length(P1AM)
-   if abs(P1AM(i))>0.02
+   if abs(P1AM(i))>0.001
        newF=[newF f(i)];
        PAM= [PAM P1AM(i)];
        PBM= [PBM P1BM(i)];
@@ -297,12 +299,23 @@ subplot(2,2,1);
 stem(wc,rcA);
 % xlim([-5e4 5e4]);
 grid on;
-
+grid minor;
+set(gca,'FontSize',14);
+xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
+ylabel('Angle of harmonic components','FontSize',14,'FontWeight','Bold')
+title('Capacitor Response');
 
 subplot(2,2,2);
 stem(wc,rcB);
 % xlim([-5e4 5e4]);
 grid on;
+grid minor;
+
+set(gca,'FontSize',14);
+xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
+ylabel('Angle of harmonic components','FontSize',14,'FontWeight','Bold')
+title('Capacitor Response');
+grid minor;
 
 
 subplot(2,2,3);
