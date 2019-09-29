@@ -4,7 +4,7 @@ clc;
 close all;
 
 %%
-scale=10; % determines switching frequency( as multiplied by 10kHz)
+scale=20; % determines switching frequency( as multiplied by 10kHz)
 %% Time definition
 sampleTime= (1e-6)/scale;
 sampleFreq=1/sampleTime;
@@ -302,8 +302,8 @@ grid on;
 grid minor;
 set(gca,'FontSize',14);
 xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
-ylabel('Angle of harmonic components','FontSize',14,'FontWeight','Bold')
-title('Capacitor Response');
+ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
+title('Capacitor A Response');
 
 subplot(2,2,2);
 stem(wc,rcB);
@@ -313,8 +313,8 @@ grid minor;
 
 set(gca,'FontSize',14);
 xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
-ylabel('Angle of harmonic components','FontSize',14,'FontWeight','Bold')
-title('Capacitor Response');
+ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
+title('Capacitor B Response');
 grid minor;
 
 
@@ -325,6 +325,6 @@ grid on;
 
 set(gca,'FontSize',14);
 xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
-ylabel('Angle of harmonic components','FontSize',14,'FontWeight','Bold')
-title('Capacitor Response');
+ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
+title('Capacitor C Response');
 

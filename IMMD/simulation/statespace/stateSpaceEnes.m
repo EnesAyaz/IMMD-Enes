@@ -163,7 +163,6 @@ currentPhaseB=-currentPhaseC-currentPhaseA;
 currentDC= currentPhaseA.*SA+currentPhaseB.*SB+ currentPhaseC.*SC;
 currentCap=states(4,:)-currentDC;
 %%
-toc
 %%
 %%
 % %% Phase Currents
