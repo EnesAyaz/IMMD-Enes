@@ -14,7 +14,7 @@ m_final= 20 ; % it determines the final harmonics of carrier
 n_final= 10; % it determines the fianl harmonics of fundamental
 
 ThC=0; % carrier phase
-ThF=2*pi/3; % fundamental phase , changing for A B C phase 0 -2*pi/3 +2*pi/3
+ThF=+2*pi/3; % fundamental phase , changing for A B C phase 0 -2*pi/3 +2*pi/3
 
 M= 0.9; % modulation index;
 
@@ -74,13 +74,13 @@ grid on;
 set(gca,'FontSize',14);
 
 %% cosinüs to jw axis
-
-for i=1:length(mag)
-    f=[f -f(i)];
-    mag=[mag mag(i)];
-    ang= [ang ang(i)];
-   
-end
+% 
+% for i=1:length(mag)
+%     f=[f -f(i)];
+%     mag=[mag mag(i)];
+%     ang= [ang ang(i)];
+%    
+% end
 
 %%
 figure(2)
@@ -102,21 +102,21 @@ ang=ang(s_ind);
 % fA=f;
 % magA=mag;
 % angA=ang;
-% save('SwitchingFunctionPhaseA','fA','magA','angA');
+% save('SwitchingFunctionPhaseACos','fA','magA','angA');
 
 %%
 % 
 % fB=f;
 % magB=mag;
 % angB=ang;
-% save('SwitchingFunctionPhaseB','fB','magB','angB');
+% save('SwitchingFunctionPhaseBCos','fB','magB','angB');
 
-% %%
+%%
 % fC=f;
 % magC=mag;
 % angC=ang;
-% save('SwitchingFunctionPhaseC','fC','magC','angC');
+% save('SwitchingFunctionPhaseCCos','fC','magC','angC');
 % 
-
+% 
 
 

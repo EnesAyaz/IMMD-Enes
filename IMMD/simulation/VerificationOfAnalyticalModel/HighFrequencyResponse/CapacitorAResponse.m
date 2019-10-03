@@ -1,18 +1,92 @@
 %% 
 clear;
 clc;
-close all;
+close all;  
 %% loading switching phase,magnitude and frequency information of SA,SB,SC
 load('SwitchingFunctionPhaseA.mat');
 load('SwitchingFunctionPhaseB.mat');
 load('SwitchingFunctionPhaseC.mat');
 
-%% create a w-axis and convert to switching functions as complex array
+%% create a f-axis and convert to switching functions as complex array
 w= 2*pi*fA;
-complexSA= magA.* exp(1i.*w+1i.*mod(angA,2*pi));
-complexSB= magB.* exp(1i.*w+1i.*mod(angB,2*pi));
-complexSC= magC.* exp(1i.*w+1i.*mod(angC,2*pi));
+complexSA1= magA.* exp(1i.*w+1i.*mod(angA,2*pi));
+complexSB1= magB.* exp(1i.*w+1i.*mod(angB,2*pi));
+complexSC1= magC.* exp(1i.*w+1i.*mod(angC,2*pi));
 
+%% Switching Function Drawing
+figure();
+stem(w,complexSA1)
+grid on;
+grid minor;
+set(gca,'FontSize',14);
+xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
+ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
+title('Switching Functions');
+
+
+%%
+w_fund = w(end)-w(end-1);
+w_ax= w(1):w_fund:w(end);
+complexSA=complex(zeros(1,length(w_ax)));
+complexSB=complex(zeros(1,length(w_ax)));
+complexSC=complex(zeros(1,length(w_ax)));
+
+
+
+
+
+%%
+k=0;
+for i=1: length(w_ax)
+   
+    for j=1:length(w)
+    
+        if (w_ax(i)-w(j))<1 && (w_ax(i)-w(j))>-1
+          
+            complexSA(i)=complexSA1(j);
+             complexSB(i)=complexSB1(j);
+              complexSC(i)=complexSC1(j);
+            k=k+1;
+                 
+        end
+    end
+    
+end
+w=w_ax;
+%% switching function can be written as fundamental and harmonics
+figure();
+stem(w,complexSA)
+grid on;
+grid minor;
+set(gca,'FontSize',14);
+xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
+ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
+title('Switching Functions');
+% %% Real Valued Function
+% 
+% w=w((length(w)+1)/2 : end);
+% w(1)=0;
+% 
+% complexSA=2*complexSA((length(complexSA)+1)/2 : end);
+% complexSB=2*complexSB((length(complexSB)+1)/2 : end);
+% complexSC=2*complexSC((length(complexSC)+1)/2 : end);
+% 
+% 
+% 
+% complexSA(1)=complexSA(1)/2;
+% complexSC(1)=complexSC(1)/2;
+% complexSB(1)=complexSB(1)/2;
+
+%% Figure of cosinüs
+
+figure();
+stem(w,complexSA)
+grid on;
+grid minor;
+set(gca,'FontSize',14);
+xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
+ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
+title('Switching Functions');
 
 %% Phase current can be calculated by using switching function, impedance and 
 %%
@@ -20,9 +94,9 @@ Vdc=400; % Volt
 RA = 10; % Ohms
 RB = 10; % Ohms
 RC = 10; % Ohms
-LA = 15e-3; % H
-LB = 15e-3; % H
-LC = 15e-3; % H
+LA = 15e-6; % H
+LB = 15e-6; % H
+LC = 15e-6; % H
 Ia= zeros(1,length(w));
 Ib= zeros(1,length(w));
 Ic= zeros(1,length(w));
@@ -34,20 +108,38 @@ for i=1:length(fA)
   Ic(i)= complex(Vdc*(-complexSA(i)-complexSB(i)+2*complexSC(i))/(3*Z));
 end
 
+%% phase current 
+figure();
+stem(w,Ia)
+grid on;
+grid minor;
+set(gca,'FontSize',14);
+xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
+ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
+title('Phase Current');
 
+
+
+
+%%
 %%
 SAIA= conv(Ia,complexSA)/(2*pi);
 SBIB=conv(Ib,complexSB)/(2*pi);
 SCIC=conv(Ic,complexSC)/(2*pi);
 
 %% w axis can be determined??
+w=2*w(1):w_fund:2*w(end);
+% 
+w=w((length(w)+1)/2 : end);
 
+SAIA=2*SAIA((length(SAIA)+1)/2 : end);
+SBIB=2*SBIB((length(SBIB)+1)/2 : end);
+SCIC=2*SCIC((length(SCIC)+1)/2 : end);
 
-
-
+SAIA(1)=SAIA(1)/2;
+SCIC(1)=SCIC(1)/2;
+SBIB(1)=SBIB(1)/2;
 %%
-%% w axis
-time= 0:1e-4:1;
 %% Parameter values
 LATop  = 03.40e-9;
 LABot  = 20.25e-9;
@@ -164,7 +256,7 @@ rcA(rcA==0)=NaN;
 rcB(rcB==0)=NaN;
 rcC(rcC==0)=NaN;
 subplot(2,2,1);
-stem(wc,rcA);
+stem(w,rcA);
 % xlim([-5e4 5e4]);
 grid on;
 grid minor;
@@ -174,7 +266,7 @@ ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
 title('Capacitor A Response');
 
 subplot(2,2,2);
-stem(wc,rcB);
+stem(w,rcB);
 % xlim([-5e4 5e4]);
 grid on;
 grid minor;
@@ -187,7 +279,7 @@ grid minor;
 
 
 subplot(2,2,3);
-stem(wc,rcC);
+stem(w,rcC);
 % xlim([-5e4 5e4]);
 grid on;
 
