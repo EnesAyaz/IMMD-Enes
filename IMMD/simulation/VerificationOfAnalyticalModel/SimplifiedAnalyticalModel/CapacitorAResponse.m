@@ -45,7 +45,7 @@ end
 
 %% phase current 
 %%
-figure();
+figure(2);
 stem(w/2*pi,Ia)
 grid on;
 grid minor;
@@ -114,12 +114,12 @@ w= 0:w_fund:2*w(end);
 
 
 %% 
-figure();
+figure(3);
 stem(w,SAIA)
 hold on; 
-stem(w,SBIB);
-
-stem(w,SCIC)
+% stem(w,SBIB);
+% 
+% stem(w,SCIC)
 grid on;
 grid minor;
 set(gca,'FontSize',14);
@@ -138,7 +138,7 @@ grid minor;
 set(gca,'FontSize',14);
 xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
 ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
-title(' SAIA');
+title(' Input Current');
 
 
 
