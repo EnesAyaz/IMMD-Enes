@@ -111,8 +111,6 @@ SCIC=conv(complexIc,complexSC1)/(2*pi);
 %% w axis can be determined
 w= 0:w_fund:2*w(end);
 
-
-
 %% 
 figure(3);
 stem(w,SAIA)
@@ -139,6 +137,4 @@ set(gca,'FontSize',14);
 xlabel('Frequency (Hz)','FontSize',14,'FontWeight','Bold')
 ylabel('Mag of harmonic components','FontSize',14,'FontWeight','Bold')
 title(' Input Current');
-
-
 
