@@ -1,6 +1,6 @@
 %%
-clear;
-clc;
+%clear;
+%clc;
 
 %% RL Load
 Ts = 1e-6; % sec

@@ -6,7 +6,7 @@
 %% Time definition
 sampleTime= 1e-6;
 sampleFreq=1/sampleTime;
-finalTime=0.05;
+finalTime=0.1;
 time= 0: sampleTime: finalTime;
 numberOfStep= length(time);
 %% Input and parameters
@@ -59,31 +59,31 @@ SC = (VrefC > Vcarrier);
 % lowSB= lowpass(double(SB),fout,sampleFreq);
 % lowSC= lowpass(double(SC),fout,sampleFreq);
 
-% figure;
-% hold all;
-% subplot(2,2,1);
-% plot(time,SA,'b-','Linewidth',1);
-% xlim([sampleTime 100*sampleTime])
-% xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
-% title('Switch Signals A','FontSize',14,'FontWeight','Bold')
-% ylabel('Boolean','FontSize',14,'FontWeight','Bold')
-% 
-% subplot(2,2,2);
-% plot(time,SB,'r-','Linewidth',1);
-% xlim([sampleTime 100*sampleTime])
-% xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
-% title('Switch Signals B','FontSize',14,'FontWeight','Bold')
-% ylabel('Boolean','FontSize',14,'FontWeight','Bold')
-% 
-% subplot(2,2,3);
-% plot(time,SC,'m-','Linewidth',1);
-% xlim([sampleTime 100*sampleTime])
-% xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
-% title('Switch Signals C','FontSize',14,'FontWeight','Bold')
-% ylabel('Boolean','FontSize',14,'FontWeight','Bold')
-% 
-% set(gca,'FontSize',14);
-% legend({'Carrier A','Carrier-B','Carrier-C'},'Location','best');
+figure;
+hold all;
+subplot(2,2,1);
+plot(time,SA,'b-','Linewidth',1);
+xlim([sampleTime 100*sampleTime])
+xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
+title('Switch Signals A','FontSize',14,'FontWeight','Bold')
+ylabel('Boolean','FontSize',14,'FontWeight','Bold')
+
+subplot(2,2,2);
+plot(time,SB,'r-','Linewidth',1);
+xlim([sampleTime 100*sampleTime])
+xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
+title('Switch Signals B','FontSize',14,'FontWeight','Bold')
+ylabel('Boolean','FontSize',14,'FontWeight','Bold')
+
+subplot(2,2,3);
+plot(time,SC,'m-','Linewidth',1);
+xlim([sampleTime 100*sampleTime])
+xlabel('Time (Seconds)','FontSize',14,'FontWeight','Bold')
+title('Switch Signals C','FontSize',14,'FontWeight','Bold')
+ylabel('Boolean','FontSize',14,'FontWeight','Bold')
+
+set(gca,'FontSize',14);
+legend({'Carrier A','Carrier-B','Carrier-C'},'Location','best');
 
 %% state and input matrices (DX=AX+BU) ==> A 4*4 matrices B 4*1 matrices
 A11 =ones(1,numberOfStep)* -((RA*LB)+(RA*LC)+(RB*LC)) / ((LA*LC)+(LB*LC)+(LA*LB));
@@ -157,6 +157,8 @@ Vbc=states(3,:).* (SB-SC);
 Vca =states(3,:).* (SC-SA);
 currentPhaseA= states(1,:);
 currentPhaseC=states(2,:);
+CapacitorVoltage=states(3,:);
+InputCurrent=states(4,:);
 currentPhaseB=-currentPhaseC-currentPhaseA;
 currentDC= currentPhaseA.*SA+currentPhaseB.*SB+ currentPhaseC.*SC;
 currentCap=states(4,:)-currentDC;
