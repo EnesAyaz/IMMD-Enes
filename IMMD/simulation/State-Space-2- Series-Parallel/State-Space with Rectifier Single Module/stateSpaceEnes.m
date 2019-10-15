@@ -31,9 +31,9 @@ RectifierVoltage= VoltageDC* cos(mod(2*pi*gridFreq.*time,pi/3)-pi/6);
 
 %% Capacitors, inductors and resistors
 Cdc = 15e-6; % F
-RA = 10+2e-6; % Ohms
-RB = 10+2e-6; % Ohms
-RC = 10+2e-60; % Ohms
+RA = 10+1e-6; % Ohms
+RB = 10+1e-6; % Ohms
+RC = 10+1e-6; % Ohms
 LA = 15e-3; % H
 LB = 15e-3; % H
 LC = 15e-3; % H
