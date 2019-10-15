@@ -52,8 +52,14 @@ for m=1:m_final
        if mag(i)<0 
          
             mag(i)=abs(mag(i));
-            ang(i)=ang(i)+pi;
             ang(i)=mod(ang(i),2*pi);
+            if ang(i) > pi
+                ang(i)=ang(i)-pi;
+            else
+                ang(i)=ang(i)+pi;
+                
+            end
+           
            
        end
         
