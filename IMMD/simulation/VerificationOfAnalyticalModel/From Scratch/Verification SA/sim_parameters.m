@@ -3,7 +3,7 @@
 %clc;
 
 %% RL Load
-Ts = 1e-6; % sec
+Ts = 1e-7; % sec
 Tfinal = 0.1; % sec
 Ripth=0.08;
 
