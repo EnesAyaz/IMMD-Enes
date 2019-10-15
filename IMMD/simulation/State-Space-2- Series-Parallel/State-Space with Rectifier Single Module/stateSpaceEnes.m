@@ -12,6 +12,13 @@ numberOfStep= length(time);
 %% Input and parameters
 gridFreq=50;
 VoltageDC=130;
+%line-to-line voltage input for rectification
+Vab= abs(VoltageDC*cos(2*pi*gridFreq.*time+pi/2));
+Vca= abs(VoltageDC*cos(2*pi*gridFreq.*time+2*pi/3+pi/2));
+Vbc= abs(VoltageDC*cos(2*pi*gridFreq.*time-2*pi/3+pi/2));
+
+RectifierVoltage1= max(Vab,Vca);
+RectifierVoltage1= max(RectifierVoltage1,Vbc);
 RectifierVoltage= VoltageDC* cos(mod(2*pi*gridFreq.*time,pi/3)-pi/6);
 % RectifierVoltage= VoltageDC*ones(1,numberOfStep);
 
@@ -24,9 +31,9 @@ RectifierVoltage= VoltageDC* cos(mod(2*pi*gridFreq.*time,pi/3)-pi/6);
 
 %% Capacitors, inductors and resistors
 Cdc = 15e-6; % F
-RA = 10; % Ohms
-RB = 10; % Ohms
-RC = 10; % Ohms
+RA = 10+2e-6; % Ohms
+RB = 10+2e-6; % Ohms
+RC = 10+2e-60; % Ohms
 LA = 15e-3; % H
 LB = 15e-3; % H
 LC = 15e-3; % H
