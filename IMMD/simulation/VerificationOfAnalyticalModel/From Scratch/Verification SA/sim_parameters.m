@@ -14,7 +14,7 @@ fout = 50; % Hz
 wout = 2*pi*fout; % rad/sec
 
 Cdc = 15e-6;
-delta = 0; % deg % reference
+delta = 0; % rad % reference
 phase=0; % carrier
 %%
 RA = 10; % Ohms
