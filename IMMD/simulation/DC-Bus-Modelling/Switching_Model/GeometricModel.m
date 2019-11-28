@@ -153,3 +153,28 @@ disp("Power of DC Input "+ string((average_current_PhaA ...
     +average_current_PhaB+average_current_PhaC )*DC_Voltage)...
     +"Watt");
 
+%%  Total DC Current 
+figure();
+total_DC= SA.*I_Load_A+SB.*I_Load_B+SC.*I_Load_C;
+
+plot(time_array, total_DC,'Linewidth',3);
+name="DC current "+ "Load Angle with  " + string(load_angle*180/pi);
+title(name)
+
+%%
+%% Intergral of DC current 
+average_current_all= (sum(total_DC)*Ts)/ Tfinal;
+disp(string(average_current_all)+' DC current');
+
+%%
+rms_current_all= sqrt((sum(total_DC.^2)*Ts))/ Tfinal;
+disp(string(rms_current_all)+' RMS current');
+
+
+%%  capacitor Current
+figure();
+total_cap= (SA.*I_Load_A+SB.*I_Load_B+SC.*I_Load_C)-average_current_all;
+
+plot(time_array, total_cap,'Linewidth',3);
+name="Capacitor current "+ "Load Angle with  " + string(load_angle*180/pi);
+title(name)
