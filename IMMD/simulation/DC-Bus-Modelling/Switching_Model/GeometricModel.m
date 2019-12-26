@@ -26,7 +26,7 @@ DC_Voltage= 300;
 modulation_index=0.8;
 phase_voltage=(DC_Voltage*modulation_index);
 Z_Load= 30 ;
-load_angle=0;
+load_angle=pi/6;
 phase_current= phase_voltage/Z_Load;
 power3Phase= (3/2)*cos(load_angle)* phase_voltage^2/(Z_Load);
 disp("Power of 3 Phase "+ string(power3Phase)+"Watt");

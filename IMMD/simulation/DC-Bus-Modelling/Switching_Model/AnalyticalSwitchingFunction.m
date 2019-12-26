@@ -32,8 +32,8 @@ The_c=0;
 %% for SA
 SAA=zeros(size(time_array));
 
-for m=1:1000
-    for n= -1000:1000  
+for m=1:100
+    for n= -100:100  
         SAA=SAA+ (2/(m*pi))*sin((m+n)*pi/2)*...
                 besselj(n,m*k*pi/2)*...
                 cos(m*(w_c*time_array-The_c)...

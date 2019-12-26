@@ -19,9 +19,9 @@ k=0.9;
 
 
 %%  Convolution;
-phaseAcurrent= [50 ,-pi/6, 8];  % fout phase magnitude
-phaseBcurrent= [50 ,(-2*pi/3)-pi/6, 8];
-phaseCcurrent= [50 ,(2*pi/3)-pi/6, 8];
+phaseAcurrent= [f_o ,-pi/6, 8];  % fout phase magnitude
+phaseBcurrent= [f_o ,(-2*pi/3)-pi/6, 8];
+phaseCcurrent= [f_o ,(2*pi/3)-pi/6, 8];
 
 %% phase A
 frequency_A_new= [];
