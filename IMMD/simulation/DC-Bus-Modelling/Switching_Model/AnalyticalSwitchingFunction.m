@@ -1,3 +1,6 @@
+
+clear ;
+clc;
 tic;
 %% Time array
 Tstep = 1e-6; % s
@@ -32,8 +35,8 @@ The_c=0;
 %% for SA
 SAA=zeros(size(time_array));
 
-for m=1:100
-    for n= -100:100  
+for m=1:20
+    for n= -20:20  
         SAA=SAA+ (2/(m*pi))*sin((m+n)*pi/2)*...
                 besselj(n,m*k*pi/2)*...
                 cos(m*(w_c*time_array-The_c)...
